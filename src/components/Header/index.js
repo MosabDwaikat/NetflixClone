@@ -70,7 +70,7 @@ const Header = () => {
         <FormControl
           variant="filled"
           size="small"
-          sx={{ m: 1, minWidth: 100, height: "32px" }} //xxxxxxxxxxxxxxxxxxxxxxxxx
+          sx={{ m: 1, minWidth: 100, height: "32px" }}
         >
           <Select
             id="demo-simple-select-filled"
