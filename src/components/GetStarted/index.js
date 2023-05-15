@@ -11,37 +11,17 @@ import React from "react";
 
 const GetStarted = () => {
   const theme = useTheme();
-  const CustomTextField = styled(TextField)({
-    "& input": {
-      color: "white",
-    },
-    "& .MuiInput-root": {
-      color: "white",
-      height: "86px",
-    },
-    "& .MuiInputLabel-root": {
-      color: "white",
-    },
-  });
-  const CustomButton = styled(Button)({
-    backgroundColor: "rgb(229, 9, 20)",
 
+  const CustomButton = styled(Button)({
     minWidth: "195px",
     width: "195px",
-    color: "white",
     height: "56px",
     marginLeft: "8px",
     fontSize: "1.5rem",
-    fontWeight: 500,
-    textTransform: "none",
-    lineHeight: 1,
     padding: "0.75rem 1.5rem",
     [theme.breakpoints.down("sm")]: {
       marginLeft: 0,
       marginTop: "16px",
-    },
-    ":hover": {
-      backgroundColor: "rgb(193, 17, 25);",
     },
   });
   return (
@@ -80,7 +60,7 @@ const GetStarted = () => {
             },
           }}
         >
-          <CustomTextField
+          <TextField
             id="filled-basic"
             label="Email address"
             required

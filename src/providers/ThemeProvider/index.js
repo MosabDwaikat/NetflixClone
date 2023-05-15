@@ -2,6 +2,63 @@ import { red } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontWeight: 500,
+          textTransform: "none",
+          lineHeight: 1,
+          color: "white",
+          ":hover": {
+            backgroundColor: "rgb(193, 17, 25);",
+          },
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& input": {
+            color: "white",
+          },
+          "& .MuiInput-root": {
+            color: "white",
+            height: "86px",
+          },
+          "& .MuiInputLabel-root": {
+            color: "white",
+          },
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          fontSize: "0.875rem",
+          backgroundColor: "rgba(229,9,20)",
+          color: "white",
+          borderRadius: "4px",
+          ":hover": {
+            backgroundColor: "rgba(220,100,100,.5)",
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: "white",
+          fontSize: "16px",
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {},
+      },
+    },
+  },
   typography: {
     fontFamily: "sans-serif",
     h1: {
@@ -45,7 +102,7 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: "#ffffff",
+      main: "rgb(229, 9, 20)",
     },
   },
 });
