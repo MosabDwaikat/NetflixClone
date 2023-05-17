@@ -2,6 +2,7 @@ import { Box } from "@mui/system";
 import React from "react";
 import Header from "../../components/Header";
 import Hero from "../../components/Hero";
+import Features from "../../components/Features";
 
 const Landing = () => {
   return (
@@ -9,6 +10,7 @@ const Landing = () => {
       <Header />
       <Box paddingLeft={"2rem"} paddingRight={"2rem"}>
         <Hero />
+        <Features />
       </Box>
     </Box>
   );

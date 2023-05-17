@@ -13,48 +13,46 @@ const Hero = () => {
   const theme = useTheme();
 
   return (
-    <div>
-      <Box>
+    <Box>
+      <Box
+        boxSizing={"border-box"}
+        borderRadius={"16px"}
+        display={"flex"}
+        alignItems={"center"}
+        minHeight={"37.5rem"}
+        width={"100%"}
+        sx={{
+          backgroundImage: bg,
+          backgroundSize: "cover  ",
+          backgroundPosition: "center",
+        }}
+      >
         <Box
-          boxSizing={"border-box"}
-          borderRadius={"16px"}
+          minWidth={"280px"}
           display={"flex"}
-          alignItems={"center"}
-          minHeight={"37.5rem"}
-          width={"100%"}
-          sx={{
-            backgroundImage: bg,
-            backgroundSize: "cover  ",
-            backgroundPosition: "center",
-          }}
+          flexDirection={"column"}
+          justifyContent={"flex-start"}
+          margin={0}
+          paddingTop={{ xs: "3.75rem", sm: "3.75rem" }}
+          paddingRight={{ xs: "min(10%, 1rem)", sm: "min(10%, 6rem)" }}
+          paddingBottom={{ xs: "3rem", sm: "4rem" }}
+          paddingLeft={{ xs: "min(10%, 1rem)", sm: "min(10%, 6rem)" }}
         >
-          <Box
-            minWidth={"280px"}
-            display={"flex"}
-            flexDirection={"column"}
-            justifyContent={"flex-start"}
-            margin={0}
-            paddingTop={{ xs: "3.75rem", sm: "3.75rem" }}
-            paddingRight={{ xs: "min(10%, 1rem)", sm: "min(10%, 6rem)" }}
-            paddingBottom={{ xs: "3rem", sm: "4rem" }}
-            paddingLeft={{ xs: "min(10%, 1rem)", sm: "min(10%, 6rem)" }}
+          <Typography
+            variant="h1"
+            color={"white"}
+            marginTop={"16px"}
+            width={"66.66666666666666%"}
           >
-            <Typography
-              variant="h1"
-              color={"white"}
-              marginTop={"16px"}
-              width={"66.66666666666666%"}
-            >
-              Unlimited movies, TV shows, and more
-            </Typography>
-            <Typography variant="body1" color={"white"} marginTop={"16px"}>
-              Plans now start at USD3.99/month.
-            </Typography>
-            <GetStarted />
-          </Box>
+            Unlimited movies, TV shows, and more
+          </Typography>
+          <Typography variant="body1" color={"white"} marginTop={"16px"}>
+            Plans now start at USD3.99/month.
+          </Typography>
+          <GetStarted />
         </Box>
       </Box>
-    </div>
+    </Box>
   );
 };
 
