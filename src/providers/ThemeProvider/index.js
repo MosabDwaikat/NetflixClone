@@ -75,6 +75,16 @@ const theme = createTheme({
         fontSize: "4rem",
       },
     },
+    h2: {
+      fontSize: "2rem",
+      fontWeight: 700,
+      letterSpacing: "normal",
+      textSizeAdjust: "100%",
+      "@media (min-width: 768px)": {
+        // Medium-sized breakpoint (md)
+        fontSize: "2.5rem",
+      },
+    },
     h3: {
       fontSize: "1.25rem",
       fontWeight: 400,

@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const GetStarted = () => {
+const GetStarted = ({ hero }) => {
   const theme = useTheme();
 
   const CustomButton = styled(Button)({
@@ -26,7 +26,7 @@ const GetStarted = () => {
   });
   return (
     <Box
-      width={"66.66666666666666%"}
+      width={hero ? "66.66666666666666%" : "100%"}
       marginTop={"16px"}
       sx={{
         [theme.breakpoints.down("sm")]: {
@@ -39,6 +39,7 @@ const GetStarted = () => {
       </Typography>
       <Box
         overflow={"visible"}
+        maxWidth={"36.625rem"}
         sx={{
           width: "100%",
           paddingTop: "16px",

@@ -49,7 +49,7 @@ const Hero = () => {
           <Typography variant="body1" color={"white"} marginTop={"16px"}>
             Plans now start at USD3.99/month.
           </Typography>
-          <GetStarted />
+          <GetStarted hero />
         </Box>
       </Box>
     </Box>
