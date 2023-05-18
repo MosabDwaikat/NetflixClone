@@ -15,12 +15,7 @@ export default function ControlledAccordions() {
   };
 
   return (
-    <Box
-      paddingLeft={"6rem"}
-      paddingBottom={"6rem"}
-      paddingRight={"6rem"}
-      marginTop={"52px"}
-    >
+    <Box paddingBottom={"6rem"}>
       <Typography variant="h2" color={"white"} marginBottom={"16px"}>
         Frequently Asked Questions
       </Typography>
@@ -35,7 +30,7 @@ export default function ControlledAccordions() {
           >
             <AccordionSummary
               sx={{
-                height: "80px",
+                minHeight: "80px",
                 backgroundColor: "rgba(19, 33, 68, 1)",
                 "&:hover": {
                   backgroundColor: "rgba(34, 51, 98, 1)",
@@ -52,11 +47,7 @@ export default function ControlledAccordions() {
               aria-controls="panel1bh-content"
               id="panel1bh-header"
             >
-              <Typography
-                fontSize={"24px"}
-                color={"white"}
-                sx={{ width: "33%", flexShrink: 0 }}
-              >
+              <Typography fontSize={"24px"} color={"white"} sx={{}}>
                 {e.summary}
               </Typography>
             </AccordionSummary>

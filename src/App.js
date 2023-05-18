@@ -5,11 +5,14 @@ import theme from "./providers/ThemeProvider";
 import Header from "./components/Header";
 import { Box } from "@mui/system";
 import Landing from "./pages/Landing";
+import LanguageProvider from "./providers/LanguageProvider";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Landing />
+      <LanguageProvider>
+        <Landing />
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

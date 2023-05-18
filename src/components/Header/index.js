@@ -1,28 +1,16 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SvgIcon,
-} from "@mui/material";
+import { Box, Button, SvgIcon } from "@mui/material";
 import styled from "@emotion/styled";
+import LanguageSelect from "../LanguageSelect";
 import theme from "../../providers/ThemeProvider";
 
 const Header = () => {
-  const [language, setLanguage] = useState("en");
   const CustomButton = styled(Button)({
     width: "75px",
     height: "32px",
     marginLeft: "12px",
     padding: "0.25rem 1rem",
   });
-
-  const handleChange = (event) => {
-    setLanguage(event.target.value);
-  };
 
   return (
     <Box
@@ -67,28 +55,7 @@ const Header = () => {
         </g>
       </SvgIcon>
       <Box display={"flex"} justifyContent={"flex-end"} alignItems={"center"}>
-        <FormControl
-          variant="filled"
-          size="small"
-          sx={{ m: 1, minWidth: 100, height: "32px" }}
-        >
-          <Select
-            id="demo-simple-select-filled"
-            value={language}
-            onChange={handleChange}
-            sx={{
-              height: "32px",
-              paddingBottom: "16px",
-            }}
-          >
-            <MenuItem value={"en"} sx={{ height: "32px" }}>
-              English
-            </MenuItem>
-            <MenuItem value={"ar"} sx={{ height: "32px" }}>
-              العربية
-            </MenuItem>
-          </Select>
-        </FormControl>
+        <LanguageSelect />
         <CustomButton variant="contained">Sign in</CustomButton>
       </Box>
     </Box>
