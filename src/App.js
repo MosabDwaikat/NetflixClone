@@ -6,12 +6,13 @@ import Header from "./components/Header";
 import { Box } from "@mui/system";
 import Landing from "./pages/Landing";
 import LanguageProvider from "./providers/LanguageProvider";
+import SignIn from "./pages/SignIn";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <LanguageProvider>
-        <Landing />
+        <SignIn />
       </LanguageProvider>
     </ThemeProvider>
   );

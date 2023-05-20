@@ -6,22 +6,35 @@ import LanguageSelect from "../LanguageSelect";
 const Footer = () => {
   return (
     <Box>
-      <Typography variant="body1" color={"white"}>
-        <span className="link"> Questions? Contact us.</span>
+      <Typography
+        variant="body1"
+        color={"white"}
+        sx={{ textDecoration: "underline", cursor: "pointer" }}
+      >
+        Questions? Contact us.
       </Typography>
       <Box color={"white"} display={"grid"} marginBottom={"36px"}>
         <ul className="footer-ul">
           {listItems.map((e, i) => {
             return (
               <li key={i} className="footer-li">
-                <span className="link">{e.title}</span>
+                <Typography
+                  display={"inline"}
+                  variant="body2"
+                  sx={{
+                    "&:hover": { textDecoration: "underline" },
+                    cursor: "pointer",
+                  }}
+                >
+                  {e.title}
+                </Typography>
               </li>
             );
           })}
         </ul>
       </Box>
       <LanguageSelect />
-      <Typography variant="body1" color={"white"} marginTop={"36px"}>
+      <Typography variant="body2" color={"white"} marginTop={"36px"}>
         Netflix <span>{location}</span>
       </Typography>
     </Box>
