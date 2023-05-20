@@ -52,10 +52,10 @@ const SignInFooter = () => {
 export default SignInFooter;
 
 const listItems = [
-  { title: "FAQ", url: "" },
-  { title: "Help Center", url: "" },
-  { title: "Terms of Use", url: "" },
-  { title: "Privacy", url: "" },
-  { title: "Cookie Preferences", url: "" },
-  { title: "Corporate Information", url: "" },
+  { title: "FAQ", url: "/" },
+  { title: "Help Center", url: "/" },
+  { title: "Terms of Use", url: "/" },
+  { title: "Privacy", url: "/" },
+  { title: "Cookie Preferences", url: "/" },
+  { title: "Corporate Information", url: "/" },
 ];
