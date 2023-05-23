@@ -46,8 +46,8 @@ const HomeHeader = () => {
     <Box>
       <Box
         height={{ xs: "41px", md: "68px" }}
-        // border={"1px solid"}
         position={"fixed"}
+        zIndex={1}
         width={"100%"}
         top={"0"}
         sx={{
