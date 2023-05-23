@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <Box>
       <HomeHeader />
-      <img src={HomeHero} alt="" style={{ width: "100%", height: "2000px" }} />
+      <img src={HomeHero} alt="" style={{ width: "100%" }} />
     </Box>
   );
 };

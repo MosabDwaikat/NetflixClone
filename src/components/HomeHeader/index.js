@@ -1,7 +1,10 @@
-import { Box } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
 import NetflixLogo from "../NetflixLogo";
 import "./HomeHeader.css";
+import { IoMdArrowDropdown } from "react-icons/io";
+import HomeHeaderControls from "../HomeHeaderControls";
+import BrowseDropdown from "../BrowseDropdown";
 
 const HomeHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,10 +27,25 @@ const HomeHeader = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const timeoutRef = useRef(null);
+
+  const handleMouseEnter = () => {
+    clearTimeout(timeoutRef.current);
+    setIsDropdownVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsDropdownVisible(false);
+    }, 500);
+  };
+
   return (
     <Box>
       <Box
-        height={{ sm: "41px", md: "68px" }}
+        height={{ xs: "41px", md: "68px" }}
         // border={"1px solid"}
         position={"fixed"}
         width={"100%"}
@@ -47,22 +65,45 @@ const HomeHeader = () => {
           alignItems={"center"}
           paddingX={"4%"}
         >
-          <NetflixLogo sx={{ width: "92px" }} />
-          <ul className="home-header-ul">
-            {HeaderMenuItems.map((e, i) => {
-              return (
-                <li
-                  key={i}
-                  className={"home-header-ul-li " + (i === 0 ? " active" : "")}
-                >
-                  {e.title}
-                </li>
-              );
-            })}
-          </ul>
-          <Box position={"absolute"} right={"35px"}>
-            xxx
+          <NetflixLogo sx={{ width: { md: "92px", xs: "56px" } }} />
+          <Box display={{ xs: "none", md: "block" }}>
+            <ul className="home-header-ul">
+              {HeaderMenuItems.map((e, i) => {
+                return (
+                  <li
+                    key={i}
+                    className={
+                      "home-header-ul-li " + (i === 0 ? " active" : "")
+                    }
+                  >
+                    {e.title}
+                  </li>
+                );
+              })}
+            </ul>
           </Box>
+          <Box display={{ xs: "block", md: "none" }}>
+            <Typography
+              display={"flex"}
+              alignItems={"center"}
+              variant="body2"
+              color={"white"}
+              paddingLeft={"18px"}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              browse {<IoMdArrowDropdown />}
+            </Typography>
+          </Box>
+          <Box position={"absolute"} right={"4%"}>
+            <HomeHeaderControls />
+          </Box>
+          {isDropdownVisible && (
+            <BrowseDropdown
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            />
+          )}
         </Box>
       </Box>
     </Box>
