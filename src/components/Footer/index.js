@@ -1,6 +1,5 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import "./Footer.css";
 import LanguageSelect from "../LanguageSelect";
 
 const Footer = () => {
@@ -13,7 +12,33 @@ const Footer = () => {
       >
         Questions? Contact us.
       </Typography>
-      <Box color={"white"} display={"grid"} marginBottom={"36px"}>
+      <Box
+        color={"white"}
+        display={"grid"}
+        marginBottom={"36px"}
+        sx={{
+          ul: {
+            display: "flex",
+            flexWrap: "wrap",
+            listStyle: "none",
+            padding: 0,
+          },
+          li: {
+            marginTop: "12px",
+            flexBasis: "100%",
+            fontSize: "0.875rem",
+            "@media (min-width:600px)": {
+              flexBasis: "50%",
+            },
+            "@media (min-width:960px)": {
+              flexBasis: "33.3333333%",
+            },
+            "@media (min-width:1280px)": {
+              flexBasis: "25%",
+            },
+          },
+        }}
+      >
         <ul className="footer-ul">
           {listItems.map((e, i) => {
             return (
