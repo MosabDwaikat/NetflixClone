@@ -26,7 +26,7 @@ const HomeHeaderControls = () => {
       <BiSearch className="header-controls-item" />
       <Typography
         variant="body1"
-        marginRight="10px"
+        marginRight="14px"
         color="white"
         display={{ xs: "none", lg: "inline" }}
       >

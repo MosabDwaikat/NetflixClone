@@ -1,0 +1,16 @@
+.slick-dots {
+  position: absolute;
+  top: -30px;
+  right: 0px;
+  width: auto;
+}
+.slick-dots li {
+  width: 12px;
+  height: 2px;
+  margin: 0;
+  margin-left: 1px;
+  background-color: rgb(77, 77, 77);
+}
+li.slick-active {
+  background-color: rgb(170, 170, 170) !important;
+}
