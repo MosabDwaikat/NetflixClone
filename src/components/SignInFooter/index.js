@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import LanguageSelect from "../../../components/LanguageSelect";
+import LanguageSelect from "../LanguageSelect";
 
 const SignInFooter = () => {
   return (

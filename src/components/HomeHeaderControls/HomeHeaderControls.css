@@ -1,0 +1,11 @@
+.header-controls-item {
+  font-size: 24px;
+  font-weight: 500;
+  color: white;
+  margin-right: 10px;
+}
+.ProfilePic {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+}

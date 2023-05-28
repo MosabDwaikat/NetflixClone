@@ -3,7 +3,7 @@ import React from "react";
 import bg2 from "./bg2.jpg";
 import LoginPanel from "../../components/LoginPanel";
 import NetflixLogo from "../../components/NetflixLogo";
-import SignInFooter from "./SignInFooter";
+import SignInFooter from "../../components/SignInFooter";
 
 const SignIn = () => {
   return (

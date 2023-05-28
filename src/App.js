@@ -7,12 +7,13 @@ import { Box } from "@mui/system";
 import Landing from "./pages/Landing";
 import LanguageProvider from "./providers/LanguageProvider";
 import SignIn from "./pages/SignIn";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <LanguageProvider>
-        <SignIn />
+        <Home />
       </LanguageProvider>
     </ThemeProvider>
   );
