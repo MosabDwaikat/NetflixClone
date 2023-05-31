@@ -42,7 +42,7 @@ const HomeHeaderDropdown = ({ onMouseEnter, onMouseLeave }) => {
         <List>
           {ListItems.map((e, i) => {
             return (
-              <ListItem disablePadding>
+              <ListItem disablePadding key={i}>
                 <ListItemButton>
                   <ListItemIcon sx={{ color: "white", fontSize: "25px" }}>
                     {e.icon}

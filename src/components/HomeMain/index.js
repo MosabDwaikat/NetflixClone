@@ -6,14 +6,7 @@ import { FaPlay } from "react-icons/fa";
 import { MdReplay } from "react-icons/md";
 import { VscUnmute, VscMute } from "react-icons/vsc";
 
-const HomeMain = ({
-  heroPreview,
-  showVideo,
-  muteVideo,
-  handleVideoButton,
-  popupProps,
-  setPopupProps,
-}) => {
+const HomeMain = ({ heroPreview, showVideo, muteVideo, handleVideoButton }) => {
   return (
     <Box
       position={"absolute"}
@@ -32,9 +25,13 @@ const HomeMain = ({
         justifyContent={"flex-end"}
       >
         <Box width={"100%"}>
-          <img src={heroPreview.logo} alt="" width={"100%"} />
+          <img
+            src={heroPreview.logo}
+            alt=""
+            width={showVideo ? "60%" : "100%"}
+          />
           <Typography fontSize={"1.2vw"} color={"white"}>
-            {heroPreview.description}
+            {!showVideo && heroPreview.description}
           </Typography>
           <Box display={"flex"} marginTop={"1.5vw"}>
             <PlayButton variant="contained" size="small">

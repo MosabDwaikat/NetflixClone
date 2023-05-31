@@ -37,7 +37,7 @@ const BrowseDropdown = ({ onMouseEnter, onMouseLeave }) => {
         <List>
           {ListItems.map((e, i) => {
             return (
-              <ListItem disablePadding>
+              <ListItem disablePadding key={i}>
                 <ListItemButton>
                   <ListItemText
                     primary={

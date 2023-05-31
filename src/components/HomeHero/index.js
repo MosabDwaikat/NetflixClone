@@ -1,11 +1,6 @@
 import { Box } from "@mui/system";
-import React, { useState } from "react";
-import { Button, Typography } from "@mui/material";
-import styled from "@emotion/styled";
-import { BiInfoCircle } from "react-icons/bi";
-import { FaPlay } from "react-icons/fa";
-import { MdReplay } from "react-icons/md";
-import { VscUnmute, VscMute } from "react-icons/vsc";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const HomeHero = ({ heroPreview, showVideo, muteVideo, handleVideoEnd }) => {
   return (
@@ -20,7 +15,7 @@ const HomeHero = ({ heroPreview, showVideo, muteVideo, handleVideoEnd }) => {
           />
         </Box>
 
-        {showVideo && (
+        {showVideo && heroPreview.video && (
           <Box position={"absolute"} top={0} left={0} width={"100%"}>
             <video
               autoPlay
