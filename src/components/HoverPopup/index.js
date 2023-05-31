@@ -1,28 +1,30 @@
 import { Box, Button, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { SlLike } from "react-icons/sl";
-import { FaPlay, FaPlus } from "react-icons/fa";
-import styled from "@emotion/styled";
 
-const HoverPopup = ({ popupProps, setPopupProps }) => {
-  const [animate, setAnimate] = useState("");
+import styled from "@emotion/styled";
+import PopupControls from "../PopupControls";
+import ContentInfo from "../ContentInfo";
+
+const HoverPopup = ({ popupProps, setPopupProps, setInfoProps }) => {
+  const [animate, setAnimate] = useState(false);
   const popupRef = useRef(null);
+  const [styles, setStyles] = useState();
+
   useEffect(() => {
-    setAnimate("animate");
+    setAnimate(true);
   }, []);
 
   const handleMouseEnter = (e) => {
-    setPopupProps({ ...popupProps, display: "block" });
+    setPopupProps({ ...popupProps, display: "view popup" });
   };
   const handleMouseLeave = () => {
-    setAnimate("");
+    setAnimate(false);
     setTimeout(() => {
-      setPopupProps({ display: "none" });
+      setPopupProps({ display: "hide popup" });
     }, 300);
   };
 
-  const [styles, setStyles] = useState();
   useEffect(() => {
     const boxElement = popupRef.current;
 
@@ -47,6 +49,25 @@ const HoverPopup = ({ popupProps, setPopupProps }) => {
     }
   }, [popupProps.width]);
 
+  const handleExpand = () => {
+    console.log("Box clicked");
+    //get video current time
+    const pos = popupRef.current.getBoundingClientRect();
+
+    setInfoProps({
+      initialPosition: {
+        x: pos.x,
+        y: pos.y,
+      },
+      initialDimensions: {
+        width: pos.width,
+        height: pos.height,
+      },
+      display: "showInfoPanel",
+      content: popupProps.content,
+    });
+  };
+
   return (
     <Box
       ref={popupRef}
@@ -57,7 +78,7 @@ const HoverPopup = ({ popupProps, setPopupProps }) => {
       top={popupProps.y}
       left={popupProps.x}
       sx={
-        animate === "animate"
+        animate
           ? {
               ...styles,
               transition:
@@ -91,7 +112,7 @@ const HoverPopup = ({ popupProps, setPopupProps }) => {
             padding={"16px"}
             boxSizing={"border-box"}
             bgcolor={"rgb(24, 24, 24)"}
-            onClick={() => console.log("Box clicked")}
+            onClick={handleExpand}
             sx={{
               cursor: "pointer",
               borderBottomLeftRadius: "6px",
@@ -103,31 +124,7 @@ const HoverPopup = ({ popupProps, setPopupProps }) => {
               justifyContent={"flex-start"}
               marginBottom={"8px"}
             >
-              <CircleButton
-                sx={{ backgroundColor: "rgba(255,255,255,1)" }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  console.log("Play button clicked");
-                }}
-              >
-                <FaPlay color="black" />
-              </CircleButton>
-              <CircleButton
-                onClick={(e) => {
-                  e.stopPropagation();
-                  console.log("'Add to My List' button clicked");
-                }}
-              >
-                <FaPlus />
-              </CircleButton>
-              <CircleButton
-                onClick={(e) => {
-                  e.stopPropagation();
-                  console.log("Like button clicked");
-                }}
-              >
-                <SlLike />
-              </CircleButton>
+              <PopupControls playVariant={"circle"} circleBg={"dark"} />
               <Box width={"60%"} display={"flex"} justifyContent={"flex-end"}>
                 <CircleButton
                   onClick={(e) => {
@@ -139,40 +136,7 @@ const HoverPopup = ({ popupProps, setPopupProps }) => {
                 </CircleButton>
               </Box>
             </Box>
-            <Box margin={"12px 0"} display={"flex"} alignItems={"center"}>
-              <Typography
-                maxWidth={"300px"}
-                marginRight={"8px"}
-                fontWeight={500}
-                fontSize={"16px"}
-                color={"rgb(70, 211, 105)"}
-              >{`${popupProps.content.info.match}% Match`}</Typography>
-              <Typography
-                border={"1px solid rgba(255, 255, 255, 0.4)"}
-                paddingX={" 0.4em"}
-                maxWidth={"300px"}
-                marginRight={"8px"}
-                fontWeight={500}
-                fontSize={"16px"}
-                color={"rgb(188, 188, 188)"}
-              >{`${popupProps.content.info.maturity}+`}</Typography>
-              <Typography
-                maxWidth={"300px"}
-                marginRight={"8px"}
-                fontWeight={500}
-                fontSize={"16px"}
-                color={"rgb(188, 188, 188)"}
-              >{`${popupProps.content.info.length}`}</Typography>
-              <Typography
-                border={"1px solid rgba(255, 255, 255, 0.4)"}
-                paddingX={" 0.5em"}
-                maxWidth={"300px"}
-                marginRight={"8px"}
-                fontWeight={500}
-                fontSize={"11px"}
-                color={"rgba(255, 255, 255, 0.9)"}
-              >{`${popupProps.content.info.quality}`}</Typography>
-            </Box>
+            <ContentInfo info={popupProps.content.info} />
             <Box marginBottom={"8px"}>
               {popupProps.content.tags.map((e, i) => {
                 return (

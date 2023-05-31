@@ -1,8 +1,18 @@
 import { Box, Button, Typography } from "@mui/material";
+import axios from "axios";
 import React from "react";
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
 const HomeFooter = () => {
+  const handle = () => {
+    try {
+      axios.get("http://localhost:5000/").then((res) => {
+        console.log(res);
+      });
+    } catch (error) {
+      console.error("Error retrieving Firestore data:", error);
+    }
+  };
   return (
     <Box
       margin={"20px auto 0"}
@@ -83,6 +93,7 @@ const HomeFooter = () => {
         >
           Service Code
         </Button>
+        <Button onClick={handle}>xxxxxx</Button>
       </Box>
       <Typography
         fontSize={"11px"}

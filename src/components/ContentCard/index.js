@@ -16,7 +16,7 @@ const ContentCard = ({ content, setPopupProps }) => {
         y: top + "px",
         width: element.getBoundingClientRect().width,
         height: element.getBoundingClientRect().height,
-        display: "block",
+        display: "view popup",
         content: content,
       };
       setPopupProps(popup);
@@ -25,7 +25,7 @@ const ContentCard = ({ content, setPopupProps }) => {
 
   const handleMouseLeave = () => {
     clearTimeout(timeoutRef.current);
-    setPopupProps({ display: "none" });
+    setPopupProps({ display: "hide popup" });
   };
 
   return (
