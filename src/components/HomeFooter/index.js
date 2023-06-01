@@ -6,7 +6,7 @@ import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 const HomeFooter = () => {
   const handle = () => {
     try {
-      axios.get("http://localhost:5000/").then((res) => {
+      axios.get("http://localhost:5000/sliders").then((res) => {
         console.log(res);
       });
     } catch (error) {

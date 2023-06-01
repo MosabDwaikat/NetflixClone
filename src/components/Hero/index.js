@@ -1,8 +1,7 @@
 import React from "react";
-import { Container, Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import GetStarted from "../GetStarted";
 import hero from "./hero.jpg";
-import styled from "@emotion/styled";
 
 const Hero = () => {
   const bg = `linear-gradient(65.68deg, rgba(0, 8, 29, 0.6) 9.51%,
@@ -10,7 +9,6 @@ const Hero = () => {
     linear-gradient(102.21deg, rgba(0, 0, 0, 0.04) 16.09%,
     rgba(1, 1, 1, 0.17) 39.27%, rgba(1, 1, 1, 0.24) 64.25%,
     rgba(4, 4, 4, 0.8) 96.63%),url( ${hero}  )`;
-  const theme = useTheme();
 
   return (
     <Box>

@@ -1,8 +1,10 @@
 import React from "react";
 import LoginForm from "../LoginForm";
 import { Box, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const LoginPanel = () => {
+  const navigate = useNavigate();
   return (
     <Box
       bgcolor={"rgba(0,0,0,.75);"}
@@ -35,6 +37,7 @@ const LoginPanel = () => {
               cursor: "pointer",
               "&:hover": { textDecoration: "underline" },
             }}
+            onClick={() => navigate("/SignUp")}
           >
             Sign up now
           </Typography>

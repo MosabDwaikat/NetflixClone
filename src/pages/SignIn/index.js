@@ -4,8 +4,10 @@ import bg2 from "./bg2.jpg";
 import LoginPanel from "../../components/LoginPanel";
 import NetflixLogo from "../../components/NetflixLogo";
 import SignInFooter from "../../components/SignInFooter";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
+  const navigate = useNavigate();
   return (
     <Box
       display={"flex"}
@@ -33,9 +35,13 @@ const SignIn = () => {
         justifyContent={"flex-start"}
         alignItems={"center"}
       >
-        <NetflixLogo
-          sx={{ width: "167px", height: "45px", marginLeft: "3%" }}
-        />
+        <Box
+          sx={{ cursor: "pointer" }}
+          marginLeft={"3%"}
+          onClick={() => navigate("/")}
+        >
+          <NetflixLogo sx={{ width: "167px", height: "45px" }} />
+        </Box>
       </Box>
       <LoginPanel />
       <SignInFooter />

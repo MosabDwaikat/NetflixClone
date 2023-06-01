@@ -55,62 +55,17 @@ const Home = () => {
       console.error("Error retrieving Firestore data:", error);
     }
   }, []);
-  const sliders = [
-    {
-      title: "Popular on Netflix",
-      content: [
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-      ],
-    },
-    {
-      title: "Trending Now",
-      content: [
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-      ],
-    },
-    {
-      title: "My List",
-      content: [
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-        heroPreview,
-      ],
-    },
-  ];
+
+  const [slidersContent, setSlidersContent] = useState([]);
+  useEffect(() => {
+    try {
+      axios.get("http://localhost:5000/sliders").then((res) => {
+        setSlidersContent(res.data);
+      });
+    } catch (error) {
+      console.error("Error retrieving Firestore data:", error);
+    }
+  }, []);
 
   return (
     <Box bgcolor={"rgb(20, 20, 20)"}>
@@ -153,14 +108,14 @@ const Home = () => {
               "linear-gradient(transparent 0, transparent 100px, rgb(20,20,20) 200px)",
           }}
         >
-          {sliders.map((e, i) => {
+          {slidersContent.map((e, i) => {
             return (
               <HomeCarousel title={e.title} key={i}>
                 {e.content.map((element, index) => {
                   return (
                     <ContentCard
                       key={index}
-                      content={heroPreview}
+                      content={element}
                       setPopupProps={setPopupProps}
                     />
                   );

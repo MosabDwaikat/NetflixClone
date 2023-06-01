@@ -1,6 +1,5 @@
 import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 
 const HomeHero = ({ heroPreview, showVideo, muteVideo, handleVideoEnd }) => {
   return (
@@ -18,6 +17,7 @@ const HomeHero = ({ heroPreview, showVideo, muteVideo, handleVideoEnd }) => {
         {showVideo && heroPreview.video && (
           <Box position={"absolute"} top={0} left={0} width={"100%"}>
             <video
+              key={heroPreview.video}
               autoPlay
               muted={muteVideo}
               width={"100%"}

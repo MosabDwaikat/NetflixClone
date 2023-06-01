@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { Box, Button, SvgIcon } from "@mui/material";
+import React from "react";
+import { Box, Button } from "@mui/material";
 import styled from "@emotion/styled";
 import LanguageSelect from "../LanguageSelect";
-import theme from "../../providers/ThemeProvider";
+
 import NetflixLogo from "../NetflixLogo";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   const CustomButton = styled(Button)({
     width: "75px",
     height: "32px",
@@ -25,7 +27,9 @@ const Header = () => {
       <NetflixLogo />
       <Box display={"flex"} justifyContent={"flex-end"} alignItems={"center"}>
         <LanguageSelect />
-        <CustomButton variant="contained">Sign in</CustomButton>
+        <CustomButton variant="contained" onClick={() => navigate("/signin")}>
+          Sign in
+        </CustomButton>
       </Box>
     </Box>
   );

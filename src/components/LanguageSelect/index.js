@@ -1,5 +1,5 @@
 import { FormControl, MenuItem, Select } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import LanguageContext from "../../contexts/LanguageContext";
 
 const LanguageSelect = () => {

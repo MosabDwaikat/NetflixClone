@@ -7,10 +7,15 @@ import {
   Button,
   useTheme,
 } from "@mui/material";
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const GetStarted = ({ hero }) => {
+  const navigate = useNavigate();
   const theme = useTheme();
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState(false);
 
   const CustomButton = styled(Button)({
     minWidth: "195px",
@@ -24,6 +29,50 @@ const GetStarted = ({ hero }) => {
       marginTop: "16px",
     },
   });
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    if (error) {
+      if (!value || !validateEmail(value)) {
+        setError(true);
+      } else {
+        setError(false);
+      }
+    }
+  };
+  const handleBlur = (e) => {
+    const value = e.target.value;
+    if (!value || !validateEmail(value)) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email || !validateEmail(email)) {
+      setError(true);
+      return;
+    }
+    axios
+      .post("http://localhost:5000/auth/validateEmail", { email: email })
+      .then((res) => {
+        navigate("/SignIn");
+      })
+      .catch((error) => {
+        if (error.response.data.message === "email does not exist") {
+          navigate("/SignUp");
+        } else {
+          alert(error);
+        }
+      });
+  };
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   return (
     <Box
       width={hero ? "66.66666666666666%" : "100%"}
@@ -62,10 +111,15 @@ const GetStarted = ({ hero }) => {
           }}
         >
           <TextField
-            id="filled-basic"
             label="Email address"
+            type="email"
             required
+            value={email}
+            onChange={handleEmailChange}
+            onBlur={handleBlur}
             variant="filled"
+            helperText={error && "Email is required"}
+            error={error}
             fullWidth
             sx={{
               backgroundColor: "rgba(0,0,0,0.7)",
@@ -75,7 +129,12 @@ const GetStarted = ({ hero }) => {
               minWidth: "12.5rem",
             }}
           />
-          <CustomButton variant="contained" size="large">
+          <CustomButton
+            variant="contained"
+            onClick={handleSubmit}
+            size="large"
+            type="submit"
+          >
             {"Get Started >"}
           </CustomButton>
         </FormControl>

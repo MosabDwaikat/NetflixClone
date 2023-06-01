@@ -10,35 +10,48 @@ import {
   IconButton,
   TextField,
   Typography,
-  useTheme,
 } from "@mui/material";
 
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-  const theme = useTheme();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
+  const [info, setInfo] = useState({ email: "", password: "" });
+  const handleChange = (e) => {
+    setInfo({ ...info, [e.target.name]: e.target.value });
+  };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const CustomButton = styled(Button)({
-    minWidth: "195px",
-    height: "48px",
-    fontSize: "1.5rem",
-    padding: "0.75rem 1.5rem",
-    // [theme.breakpoints.down("sm")]: {
-    //   marginLeft: 0,
-    //   marginTop: "16px",
-    // },
-  });
+  const handleSignin = () => {
+    axios
+      .post("http://localhost:5000/auth/Login", info)
+      .then((res) => {
+        console.log(res.data.token);
+        localStorage.setItem("token", res.data.token);
+        navigate("/home");
+      })
+      .catch((error) => {
+        // if(error.response.data==='')
+        console.log(error);
+
+        alert(error.response.data.slice(5, error.response.data.length));
+      });
+  };
+
   return (
     <Box paddingBottom={"50px"}>
       <FormControl sx={{ width: "100%" }}>
         <TextField
           label="Email or phone number"
           required
+          name="email"
+          value={info.email}
+          onChange={handleChange}
           variant="filled"
           fullWidth
           sx={{
@@ -59,6 +72,9 @@ const LoginForm = () => {
         />
         <TextField
           label="Password"
+          name="password"
+          value={info.password}
+          onChange={handleChange}
           type={showPassword ? "text" : "password"}
           required
           variant="filled"
@@ -87,7 +103,12 @@ const LoginForm = () => {
           }}
         />
 
-        <CustomButton variant="contained" size="large" fullWidth>
+        <CustomButton
+          variant="contained"
+          size="large"
+          fullWidth
+          onClick={handleSignin}
+        >
           Sign In
         </CustomButton>
         <Box
@@ -127,3 +148,9 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+const CustomButton = styled(Button)({
+  minWidth: "195px",
+  height: "48px",
+  fontSize: "1.5rem",
+  padding: "0.75rem 1.5rem",
+});
