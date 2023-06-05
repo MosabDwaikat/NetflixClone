@@ -3,12 +3,15 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./providers/ThemeProvider";
 import LanguageProvider from "./providers/LanguageProvider";
 import Router from "./Router";
+import { AuthProvider } from "./providers/AuthProvider";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <LanguageProvider>
-        <Router />
+        <AuthProvider>
+          <Router />
+        </AuthProvider>
       </LanguageProvider>
     </ThemeProvider>
   );

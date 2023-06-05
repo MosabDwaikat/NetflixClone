@@ -24,12 +24,14 @@ const LoginPanel = () => {
       </Typography>
       <LoginForm />
       <Box paddingBottom={{ xs: "0", sm: "100px" }}>
-        <Typography
-          color={"rgb(115, 115, 115)"}
-          variant="body1"
-          marginTop={"16px"}
-        >
-          New to Netflix?{" "}
+        <Box marginTop={"16px"}>
+          <Typography
+            color={"rgb(115, 115, 115)"}
+            variant="body1"
+            display={"inline"}
+          >
+            {"New to Netflix? "}
+          </Typography>
           <Typography
             display={"inline"}
             color={"white"}
@@ -41,13 +43,16 @@ const LoginPanel = () => {
           >
             Sign up now
           </Typography>
-        </Typography>
-        <Typography
-          color={"rgb(140, 140, 140)"}
-          variant="body2"
-          marginTop={"11px"}
-        >
-          This page is protected by Google reCAPTCHA to ensure you're not a bot.
+        </Box>
+        <Box marginTop={"11px"}>
+          <Typography
+            color={"rgb(140, 140, 140)"}
+            variant="body2"
+            display={"inline"}
+          >
+            This page is protected by Google reCAPTCHA to ensure you're not a
+            bot.
+          </Typography>
           <Typography
             display={"inline"}
             variant="body2"
@@ -59,7 +64,7 @@ const LoginPanel = () => {
           >
             Learn more.
           </Typography>
-        </Typography>
+        </Box>
       </Box>
     </Box>
   );

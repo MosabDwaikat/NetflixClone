@@ -14,8 +14,23 @@ import {
 } from "react-icons/md";
 import { BiTransfer } from "react-icons/bi";
 import kids from "./kids.png";
+import { useAuth } from "../../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const HomeHeaderDropdown = ({ onMouseEnter, onMouseLeave }) => {
+  const { logout, authed } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignout = async () => {
+    await logout();
+  };
+  useEffect(() => {
+    if (!authed) {
+      navigate("/");
+    }
+  }, [authed, navigate]); // navigate is added for the lint to stop the warning - its so annoying
+
   return (
     <Box
       onMouseEnter={onMouseEnter}
@@ -59,7 +74,7 @@ const HomeHeaderDropdown = ({ onMouseEnter, onMouseLeave }) => {
       <Divider color={"white"} />
       <nav aria-label="secondary">
         <List>
-          <ListItem disablePadding>
+          <ListItem disablePadding onClick={handleSignout}>
             <ListItemButton>
               <ListItemText
                 primary={

@@ -12,14 +12,16 @@ import {
   Typography,
 } from "@mui/material";
 
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../providers/AuthProvider";
 
 const LoginForm = () => {
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [info, setInfo] = useState({ email: "", password: "" });
+  const { login, authed } = useAuth();
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
@@ -27,21 +29,15 @@ const LoginForm = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSignin = () => {
-    axios
-      .post("http://localhost:5000/auth/Login", info)
-      .then((res) => {
-        console.log(res.data.token);
-        localStorage.setItem("token", res.data.token);
-        navigate("/home");
-      })
-      .catch((error) => {
-        // if(error.response.data==='')
-        console.log(error);
-
-        alert(error.response.data.slice(5, error.response.data.length));
-      });
+  const handleSignin = async () => {
+    await login(info);
   };
+
+  useEffect(() => {
+    if (authed) {
+      navigate("/home");
+    }
+  }, [authed, navigate]); // navigate is added for the lint to stop the warning - its so annoying
 
   return (
     <Box paddingBottom={"50px"}>

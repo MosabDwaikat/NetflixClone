@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Landing from "./pages/Landing";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUpSteps";
+import ProtectedRoute from "./ProtectedRoute";
 
 const Router = () => {
   return (
@@ -30,14 +31,7 @@ const Router = () => {
             //   </GuardNotLoggedin>
           }
         />
-        <Route
-          path="/Home"
-          element={
-            //   <GuardNotLoggedin>
-            <Home />
-            //   </GuardNotLoggedin>
-          }
-        />
+        <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
         <Route
           path="/SignUp"
           element={
