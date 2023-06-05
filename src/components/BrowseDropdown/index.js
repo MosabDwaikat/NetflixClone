@@ -2,17 +2,11 @@ import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
+
 import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
+
 import { IoMdArrowDropup } from "react-icons/io";
 import { Typography } from "@mui/material";
-import {
-  MdHelpOutline,
-  MdOutlineAccountCircle,
-  MdOutlineEdit,
-} from "react-icons/md";
-import { BiTransfer } from "react-icons/bi";
 
 const BrowseDropdown = ({ onMouseEnter, onMouseLeave }) => {
   return (

@@ -55,7 +55,7 @@ export default function ControlledAccordions() {
               <Typography fontSize={"24px"} color={"white"}>
                 {e.details.map((d, i) => {
                   return (
-                    <>
+                    <span key={i}>
                       {d}
                       {i !== e.details.length - 1 && (
                         <>
@@ -63,7 +63,7 @@ export default function ControlledAccordions() {
                           <br />
                         </>
                       )}
-                    </>
+                    </span>
                   );
                 })}
               </Typography>

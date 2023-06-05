@@ -10,8 +10,8 @@ const Features = () => {
     <Box marginTop={"24px"} borderRadius={"16px"} sx={{ backgroundImage: bg }}>
       {data.map((e, i) => {
         return (
-          <>
-            <Feature key={i} data={e} picPos={i % 2 === 0 ? "right" : "left"} />
+          <Box key={i}>
+            <Feature data={e} picPos={i % 2 === 0 ? "right" : "left"} />
             {i !== data.length - 1 && (
               <Box
                 // width={"100%"}
@@ -21,7 +21,7 @@ const Features = () => {
                 bgcolor={"rgba(255, 255, 255, 0.1)"}
               />
             )}
-          </>
+          </Box>
         );
       })}
     </Box>

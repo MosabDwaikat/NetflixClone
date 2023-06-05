@@ -1,17 +1,12 @@
 import { Box, Button, Typography } from "@mui/material";
-import axios from "axios";
 import React from "react";
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { useAuth } from "../../providers/AuthProvider";
 
 const HomeFooter = () => {
+  const { authed } = useAuth();
   const handle = () => {
-    try {
-      axios.get("http://localhost:5000/").then((res) => {
-        console.log(res);
-      });
-    } catch (error) {
-      console.error("Error retrieving Firestore data:", error);
-    }
+    console.log(authed);
   };
   return (
     <Box
