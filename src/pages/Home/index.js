@@ -11,6 +11,7 @@ import HomeFooter from "../../components/HomeFooter";
 import InfoPanel from "../../components/InfoPanel";
 import axios from "axios";
 import { usePreferences } from "../../providers/ContentPreferencesProvider";
+import { useAuth } from "../../providers/AuthProvider";
 
 const Home = () => {
   const [popupProps, setPopupProps] = useState({
@@ -29,6 +30,7 @@ const Home = () => {
   });
   const [showVideo, setShowVideo] = useState(true);
   const [muteVideo, setMuteVideo] = useState(true);
+  const { setAuthed } = useAuth();
   const { list } = usePreferences();
 
   const handleVideoEnd = () => {
@@ -51,6 +53,10 @@ const Home = () => {
   useEffect(() => {
     try {
       const token = localStorage.getItem("token");
+      if (!token)
+        return () => {
+          setAuthed(false);
+        };
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -62,12 +68,17 @@ const Home = () => {
     } catch (error) {
       console.error("Error retrieving Firestore data:", error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [myList, setMyList] = useState({ title: "", content: [] });
   useEffect(() => {
     try {
       const token = localStorage.getItem("token");
+      if (!token)
+        return () => {
+          setAuthed(false);
+        };
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -79,12 +90,17 @@ const Home = () => {
     } catch (error) {
       console.error("Error retrieving Firestore data:", error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list]);
 
   const [slidersContent, setSlidersContent] = useState([]);
   useEffect(() => {
     try {
       const token = localStorage.getItem("token");
+      if (!token)
+        return () => {
+          setAuthed(false);
+        };
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -96,6 +112,7 @@ const Home = () => {
     } catch (error) {
       console.log("Error retrieving Firestore data:", error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

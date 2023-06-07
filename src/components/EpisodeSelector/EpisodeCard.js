@@ -1,8 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import ep from "./episode.jpg";
 
-const EpisodeCard = () => {
+const EpisodeCard = ({ episode }) => {
   return (
     <Box
       display={"flex"}
@@ -14,11 +13,11 @@ const EpisodeCard = () => {
     >
       <Box display={"flex"} alignItems={"center"} paddingRight={"1em"}>
         <Typography variant="h2" color={"white"}>
-          1
+          {episode.num}
         </Typography>
       </Box>
       <Box width={"255px"} display={"flex"} alignItems={"center"}>
-        <img src={ep} alt="xx" width={"100%"} />
+        <img src={episode.img} alt="xx" width={"100%"} />
       </Box>
       <Box display={"flex"} flexDirection={"column"} justifyContent={"center"}>
         <Box
@@ -27,15 +26,15 @@ const EpisodeCard = () => {
           padding={"1em 1em .5em"}
         >
           <Typography variant="body1" color={"rgb(255, 255, 255)"}>
-            {data.title}
+            {episode.title}
           </Typography>
           <Typography variant="body1" color={"rgb(255, 255, 255)"}>
-            {data.length}
+            {episode.duration + "m"}
           </Typography>
         </Box>
         <Box padding={"0 1em 1em;"}>
           <Typography variant="body2" color={"rgb(210, 210, 210)"}>
-            {data.description}
+            {episode.description}
           </Typography>
         </Box>
       </Box>
@@ -44,9 +43,3 @@ const EpisodeCard = () => {
 };
 
 export default EpisodeCard;
-const data = {
-  title: "Earth Skills",
-  description:
-    "Having discovered that Jasper may still be alive, Clarke, Bellamy, Octavia, Finn and Monty set out on a mission to locate their friend.",
-  length: "41m",
-};

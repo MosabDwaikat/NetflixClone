@@ -5,6 +5,7 @@ import LanguageProvider from "./providers/LanguageProvider";
 import Router from "./Router";
 import { AuthProvider } from "./providers/AuthProvider";
 import { ContentPreferencesProvider } from "./providers/ContentPreferencesProvider";
+import { SearchProvider } from "./providers/SearchProvider";
 
 function App() {
   return (
@@ -12,7 +13,9 @@ function App() {
       <LanguageProvider>
         <AuthProvider>
           <ContentPreferencesProvider>
-            <Router />
+            <SearchProvider>
+              <Router />
+            </SearchProvider>
           </ContentPreferencesProvider>
         </AuthProvider>
       </LanguageProvider>

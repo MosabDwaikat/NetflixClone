@@ -17,13 +17,16 @@ import kids from "./kids.png";
 import { useAuth } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useSearch } from "../../providers/SearchProvider";
 
 const HomeHeaderDropdown = ({ onMouseEnter, onMouseLeave }) => {
   const { logout, authed } = useAuth();
+  const { setSearchInput } = useSearch();
   const navigate = useNavigate();
 
   const handleSignout = async () => {
     await logout();
+    setSearchInput("");
   };
   useEffect(() => {
     if (!authed) {

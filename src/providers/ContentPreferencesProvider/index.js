@@ -6,12 +6,16 @@ import { useAuth } from "../AuthProvider";
 export const ContentPreferencesProvider = ({ children }) => {
   const [likes, setLikes] = useState([]);
   const [list, setList] = useState([]);
-  const { authed } = useAuth();
+  const { authed, setAuthed } = useAuth();
 
   useEffect(() => {
     if (authed) {
       try {
         const token = localStorage.getItem("token");
+        if (!token)
+          return () => {
+            setAuthed(false);
+          };
         const config = {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -24,11 +28,15 @@ export const ContentPreferencesProvider = ({ children }) => {
         console.log("Error retrieving Firestore data:", error);
       }
     }
-  }, [authed]);
+  }, [authed, setAuthed]);
   useEffect(() => {
     if (authed)
       try {
         const token = localStorage.getItem("token");
+        if (!token)
+          return () => {
+            setAuthed(false);
+          };
         const config = {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -40,7 +48,7 @@ export const ContentPreferencesProvider = ({ children }) => {
       } catch (error) {
         console.log("Error retrieving Firestore data:", error);
       }
-  }, [authed]);
+  }, [authed, setAuthed]);
 
   return (
     <ContentPreferencesContext.Provider

@@ -35,7 +35,6 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
       setAuthed(false);
-
       setIsLoading(false);
       localStorage.removeItem("token");
     }
@@ -47,7 +46,6 @@ export const AuthProvider = ({ children }) => {
     console.log("result", result);
     if (result) {
       console.log("user has logged in");
-
       setAuthed(true);
     }
   };
@@ -73,7 +71,6 @@ export const AuthProvider = ({ children }) => {
     const result = await logoutFromServer();
     if (result) {
       console.log("The User has logged out");
-
       setAuthed(false);
     }
   };

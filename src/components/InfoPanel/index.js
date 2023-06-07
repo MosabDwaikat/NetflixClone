@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Box, Button, Typography } from "@mui/material";
-import React, { memo, useEffect, useRef } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import PopupControls from "../PopupControls";
 import AboutContent from "../AboutContent";
@@ -8,16 +8,43 @@ import Trailers from "../Trailers";
 import MoreLikeThis from "../MoreLikeThis";
 import EpisodeSelector from "../EpisodeSelector";
 import ContentInfo from "../ContentInfo";
+import { useAuth } from "../../providers/AuthProvider";
+import axios from "axios";
 
 const InfoPanel = memo(({ infoProps, setInfoProps }) => {
   const InfoPanelRef = useRef(null);
+  const { setAuthed } = useAuth();
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token)
+        return () => {
+          setAuthed(false);
+        };
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios
+        .get("http://localhost:5000/showByID/" + infoProps.id, config)
+        .then((res) => {
+          setContent(res.data);
+        });
+    } catch (error) {
+      console.error("Error retrieving Firestore data:", error);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [infoProps]);
 
   const handleClose = () => {
     setInfoProps({
       initialPosition: { x: 0, y: 0 },
       display: "hideInfoPanel",
-      content: null,
     });
+    setContent(null);
     enableScroll();
   };
 
@@ -70,7 +97,7 @@ const InfoPanel = memo(({ infoProps, setInfoProps }) => {
             <IoMdClose fontSize={"28px"} />
           </CircleButton>
         </Box>
-        {infoProps.content && (
+        {content && (
           <Box
             display={"flex"}
             flexDirection={"column"}
@@ -80,7 +107,7 @@ const InfoPanel = memo(({ infoProps, setInfoProps }) => {
           >
             <Box position={"relative"} height={"auto"}>
               <img
-                src={infoProps.content.img}
+                src={content.img}
                 alt=""
                 width={"100%"}
                 style={{
@@ -98,7 +125,7 @@ const InfoPanel = memo(({ infoProps, setInfoProps }) => {
                 justifyContent={"flex-end"}
               >
                 <Box width={"100%"}>
-                  <img src={infoProps.content.logo} alt="" width={"100%"} />
+                  <img src={content.logo} alt="" width={"100%"} />
                   <Box display={"flex"} marginTop={"1.5vw"}>
                     <PopupControls playVariant={"square"} circleBg={"dark"} />
                   </Box>
@@ -119,18 +146,18 @@ const InfoPanel = memo(({ infoProps, setInfoProps }) => {
               <Box display={"flex"} justifyContent={"space-between"}>
                 <Box width={"64%"} display={"flex"} flexDirection={"column"}>
                   <Box margin={"0.8em 0"}>
-                    <ContentInfo info={infoProps.content.info} />
-                    {infoProps.content.info.about && (
+                    <ContentInfo info={content.info} />
+                    {content.info.about && (
                       <Box>
                         <Typography variant="body2" color={"white"}>
-                          {infoProps.content.info.about}
+                          {content.info.about}
                         </Typography>
                       </Box>
                     )}
                   </Box>
                   <Box marginTop={"1em"} marginBottom={"0.5em"}>
                     <Typography variant="body2" color={"white"}>
-                      {infoProps.content.description}
+                      {content.description}
                     </Typography>
                   </Box>
                 </Box>
@@ -148,7 +175,7 @@ const InfoPanel = memo(({ infoProps, setInfoProps }) => {
                       color={"white"}
                       display={"inline"}
                     >
-                      {infoProps.content.cast.slice(0, 3).map((e, i) => {
+                      {content.cast.slice(0, 3).map((e, i) => {
                         return (
                           <span key={i}>
                             {e}
@@ -171,7 +198,7 @@ const InfoPanel = memo(({ infoProps, setInfoProps }) => {
                       color={"white"}
                       display={"inline"}
                     >
-                      {infoProps.content.geners.slice(0, 3).map((e, i) => {
+                      {content.geners.slice(0, 3).map((e, i) => {
                         return (
                           <span key={i}>
                             {e}
@@ -181,36 +208,36 @@ const InfoPanel = memo(({ infoProps, setInfoProps }) => {
                       })}
                     </Typography>
                   </Box>
-                  {infoProps.content.thisIs && (
+                  {content.thisIs && (
                     <Box margin={".5em .5em .5em 0"}>
                       <Typography
                         variant="body2"
                         color={"rgb(119, 119, 119)"}
                         display={"inline"}
                       >
-                        {`this ${infoProps.content.info.type} is: `}
+                        {`this ${content.info.type} is: `}
                       </Typography>
                       <Typography
                         variant="body2"
                         color={"white"}
                         display={"inline"}
                       >
-                        {infoProps.content.thisIs}
+                        {content.thisIs}
                       </Typography>
                     </Box>
                   )}
                 </Box>
               </Box>
-              <EpisodeSelector />
+              {content.seasons && <EpisodeSelector seasons={content.seasons} />}
               <MoreLikeThis />
               <Trailers />
               <AboutContent
-                title={infoProps.content.title}
-                info={infoProps.content.info}
-                cast={infoProps.content.cast}
-                creators={infoProps.content.creators}
-                geners={infoProps.content.geners}
-                thisIs={infoProps.content.thisIs}
+                title={content.title}
+                info={content.info}
+                cast={content.cast}
+                creators={content.creators}
+                geners={content.geners}
+                thisIs={content.thisIs}
               />
             </Box>
           </Box>
@@ -221,8 +248,6 @@ const InfoPanel = memo(({ infoProps, setInfoProps }) => {
 });
 
 export default InfoPanel;
-
-// const api = {};
 
 const CircleButton = styled(Button)(() => ({
   display: "flex",

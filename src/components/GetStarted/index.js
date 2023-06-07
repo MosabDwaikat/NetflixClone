@@ -62,7 +62,7 @@ const GetStarted = ({ hero }) => {
       })
       .catch((error) => {
         if (error.response.data.message === "email does not exist") {
-          navigate("/SignUp");
+          navigate("/SignUp", { state: { data: email } });
         } else {
           alert(error);
         }
