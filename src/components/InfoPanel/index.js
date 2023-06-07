@@ -205,6 +205,7 @@ const InfoPanel = memo(({ infoProps, setInfoProps }) => {
               <MoreLikeThis />
               <Trailers />
               <AboutContent
+                title={infoProps.content.title}
                 info={infoProps.content.info}
                 cast={infoProps.content.cast}
                 creators={infoProps.content.creators}

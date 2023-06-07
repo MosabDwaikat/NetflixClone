@@ -1,10 +1,97 @@
 import { Box, Button } from "@mui/material";
-import React from "react";
-import { SlLike } from "react-icons/sl";
-import { FaPlay, FaPlus } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
+import { FaPlay, FaPlus, FaCheck } from "react-icons/fa";
 import styled from "@emotion/styled";
+import { usePreferences } from "../../providers/ContentPreferencesProvider";
+import axios from "axios";
 
-const PopupControls = ({ playVariant, circleBg }) => {
+const PopupControls = ({ playVariant, circleBg, contentID }) => {
+  const { likes, list, setList, setLikes } = usePreferences();
+  const [listed, setListed] = useState(false);
+  const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    if (likes.includes(contentID)) setLiked(true);
+    if (list.includes(contentID)) setListed(true);
+  }, [likes, list, contentID]);
+
+  const handleListClick = (e) => {
+    e.stopPropagation();
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    if (listed) {
+      try {
+        console.log(config);
+        axios
+          .delete("http://localhost:5000/list/" + contentID, config)
+          .then((res) => {
+            console.log("newList", res.data);
+            setList(res.data.newList);
+            setListed(false);
+          });
+      } catch (error) {
+        console.log("Error retrieving Firestore data:", error);
+      }
+    } else {
+      try {
+        console.log(config);
+        axios
+          .put("http://localhost:5000/list/" + contentID, null, config)
+          .then((res) => {
+            console.log("newList", res.data.newList);
+            setList(res.data.newList);
+            setListed(true);
+          });
+      } catch (error) {
+        console.log("Error updating Firestore data:", error);
+      }
+      //call api to add to list
+    }
+  };
+  const handleLikeClick = (e) => {
+    e.stopPropagation();
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    if (liked) {
+      try {
+        console.log(config);
+        axios
+          .delete("http://localhost:5000/likes/" + contentID, config)
+          .then((res) => {
+            console.log("newList", res.data);
+            setLikes(res.data.newList);
+            setLiked(false);
+          });
+      } catch (error) {
+        console.log("Error retrieving Firestore data:", error);
+      }
+    } else {
+      try {
+        console.log(config);
+        axios
+          .put("http://localhost:5000/likes/" + contentID, null, config)
+          .then((res) => {
+            console.log("newList", res.data.newList);
+            setLikes(res.data.newList);
+            setLiked(true);
+          });
+      } catch (error) {
+        console.log("Error updating Firestore data:", error);
+      }
+      //call api to add to list
+    }
+  };
   return (
     <Box display={"flex"} alignItems={"center"}>
       {playVariant === "circle" && (
@@ -31,24 +118,18 @@ const PopupControls = ({ playVariant, circleBg }) => {
           backgroundColor:
             circleBg === "dark" ? "rgb(20,20,20)" : "transparent",
         }}
-        onClick={(e) => {
-          e.stopPropagation();
-          console.log("'Add to My List' button clicked");
-        }}
+        onClick={handleListClick}
       >
-        <FaPlus />
+        {listed ? <FaCheck /> : <FaPlus />}
       </CircleButton>
       <CircleButton
         sx={{
           backgroundColor:
             circleBg === "dark" ? "rgb(20,20,20)" : "transparent",
         }}
-        onClick={(e) => {
-          e.stopPropagation();
-          console.log("Like button clicked");
-        }}
+        onClick={handleLikeClick}
       >
-        <SlLike />
+        {liked ? <AiFillLike /> : <AiOutlineLike />}
       </CircleButton>
     </Box>
   );

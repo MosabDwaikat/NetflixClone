@@ -3,9 +3,10 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "./providers/AuthProvider";
 
 const ProtectedRoute = ({ element: Component, ...rest }) => {
-  const { authed } = useAuth();
+  const { authed, isLoading } = useAuth();
 
-  if (!authed) {
+  // if (isLoading) return <div>loading ...</div>;
+  if (!isLoading && !authed) {
     return <Navigate to="/" />;
   }
 
