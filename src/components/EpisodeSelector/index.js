@@ -12,15 +12,18 @@ import EpisodeCard from "./EpisodeCard";
 import styled from "@emotion/styled";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
-const EpisodeSelector = () => {
+const EpisodeSelector = ({ seasons }) => {
   const [season, setSeason] = useState(1);
   const [expanded, setExpanded] = useState(false);
   const episodeSelectorRef = useRef(null);
   const handleChange = (event) => {
     setSeason(event.target.value);
   };
-
-  const filteredData = data.slice(0, expanded ? data.length : 10);
+  const index = seasons.findIndex((item) => item.num === season);
+  const filteredData = seasons[index].episodes.slice(
+    0,
+    expanded ? seasons[index].episodes.length : 10
+  );
 
   const scrollToTop = () => {
     if (episodeSelectorRef.current) {
@@ -28,6 +31,7 @@ const EpisodeSelector = () => {
     }
   };
 
+  console.log(seasons[index].episodes.length);
   return (
     <Box marginTop={"30px"}>
       <Box
@@ -49,27 +53,29 @@ const EpisodeSelector = () => {
               backgroundColor: "rgb(36,36,36)",
               border: "1px solid rgb(77,77,77)",
               "&:hover": { backgroundColor: "rgb(36,36,36)" },
+              ".MuiSelect-icon": { color: "white" },
             }}
             MenuProps={{
               style: { zIndex: 4000 },
             }}
             renderValue={(value) => `Season ${value}`}
           >
-            <MenuItem value={1}>
-              <ListItemText primary="Season 1" secondary="(10 Episodes)" />
-            </MenuItem>
-            <MenuItem value={2}>
-              <ListItemText primary="Season 2" secondary="(10 Episodes)" />
-            </MenuItem>
-            <MenuItem value={3}>
-              <ListItemText primary="Season 3" secondary="(10 Episodes)" />
-            </MenuItem>
+            {seasons.map((e, i) => {
+              return (
+                <MenuItem value={e.num} key={i}>
+                  <ListItemText
+                    primary={`Season ${e.num}`}
+                    secondary={`${e.episodes.length} Episodes`}
+                  />
+                </MenuItem>
+              );
+            })}
           </Select>
         </FormControl>
       </Box>
       <Box>
         {filteredData.map((e, i) => {
-          return <EpisodeCard key={i} />;
+          return <EpisodeCard episode={e} key={i} />;
         })}
         {!expanded && data.length > 10 && (
           <Box
@@ -123,7 +129,7 @@ const EpisodeSelector = () => {
 
 export default EpisodeSelector;
 
-const data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
+const data = [{}, {}, {}];
 
 const CircleButton = styled(Button)(({ color, sx }) => ({
   display: "flex",

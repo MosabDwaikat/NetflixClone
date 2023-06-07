@@ -1,113 +1,66 @@
+import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
-import "./style.css";
-import axios from "axios";
-function RegistrationForm() {
-  const [firstName, setFirstName] = useState(null);
-  const [lastName, setLastName] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+import NetflixLogo from "../../components/NetflixLogo";
+import { useLocation, useNavigate } from "react-router-dom";
+import EnterPassword from "./enterPassword.js";
+import SignInFooter from "../../components/SignInFooter";
+import Finish from "./finish";
 
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    if (id === "firstName") {
-      setFirstName(value);
-    }
-    if (id === "lastName") {
-      setLastName(value);
-    }
-    if (id === "email") {
-      setEmail(value);
-    }
-    if (id === "password") {
-      setPassword(value);
-    }
-  };
-
-  const handleSubmit = () => {
-    console.log(firstName, lastName, email, password);
-    //make sure name not empty
-    //firebase check email and name
-    const info = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
-    };
-
-    axios
-      .post("http://localhost:5000/register", info)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        alert(error.response.data.code);
-      });
-  };
+const SignUpSteps = () => {
+  const [page, setPage] = useState(1);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const email = location.state?.data;
 
   return (
-    <div className="form">
-      <div className="form-body">
-        <div className="username">
-          <label className="form__label" for="firstName">
-            First Name{" "}
-          </label>
-          <input
-            className="form__input"
-            type="text"
-            value={firstName}
-            onChange={(e) => handleInputChange(e)}
-            id="firstName"
-            placeholder="First Name"
+    <Box width={"100%"} bgcolor={"white"}>
+      <Box
+        height={{ xs: "45px", md: "75px", lg: "90px" }}
+        boxSizing={"border-box"}
+        borderBottom={"1px solid rgb(230,230,230)"}
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"space-between"}
+        marginX={"3%"}
+      >
+        <Box sx={{ cursor: "pointer" }} onClick={() => navigate("/")}>
+          <NetflixLogo
+            sx={{
+              width: "167px",
+              height: { xs: "25px", md: "35px", lg: "45px" },
+            }}
           />
-        </div>
-        <div className="lastname">
-          <label className="form__label" for="lastName">
-            Last Name{" "}
-          </label>
-          <input
-            type="text"
-            name=""
-            id="lastName"
-            value={lastName}
-            className="form__input"
-            onChange={(e) => handleInputChange(e)}
-            placeholder="LastName"
-          />
-        </div>
-        <div className="email">
-          <label className="form__label" for="email">
-            Email{" "}
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="form__input"
-            value={email}
-            onChange={(e) => handleInputChange(e)}
-            placeholder="Email"
-          />
-        </div>
-        <div className="password">
-          <label className="form__label" for="password">
-            Password{" "}
-          </label>
-          <input
-            className="form__input"
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => handleInputChange(e)}
-            placeholder="Password"
-          />
-        </div>
-      </div>
-      <div class="footer">
-        <button onClick={() => handleSubmit()} type="submit" class="btn">
-          Register
-        </button>
-      </div>
-    </div>
+        </Box>
+        <Typography
+          color={"#333"}
+          fontSize={"19px"}
+          fontWeight={"500"}
+          display={"inline"}
+          height={"auto"}
+          sx={{ cursor: "pointer", ":hover": { textDecoration: "underline" } }}
+          onClick={() => navigate("/signin")}
+        >
+          Sign In
+        </Typography>
+      </Box>
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        justifyContent={"space-between"}
+      >
+        <Box
+          width={"100%"}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          {page === 1 && <Finish setPage={setPage} />}
+          {page === 2 && <EnterPassword Email={email} />}
+        </Box>
+        <SignInFooter bgcolor={"rgb(243, 243, 243)"} />
+      </Box>
+    </Box>
   );
-}
+};
 
-export default RegistrationForm;
+export default SignUpSteps;

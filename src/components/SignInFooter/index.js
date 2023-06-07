@@ -2,13 +2,13 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import LanguageSelect from "../LanguageSelect";
 
-const SignInFooter = () => {
+const SignInFooter = ({ bgcolor }) => {
   return (
     <Box
       width={"100%"}
       boxSizing={"border-box"}
       paddingY={"30px"}
-      bgcolor={"rgba(0, 0, 0, 0.75)"}
+      bgcolor={bgcolor || "rgba(0, 0, 0, 0.75)"}
     >
       <Box width={"90%"} maxWidth={"1000px"} margin={"auto"}>
         <Typography

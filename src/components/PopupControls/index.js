@@ -5,11 +5,13 @@ import { FaPlay, FaPlus, FaCheck } from "react-icons/fa";
 import styled from "@emotion/styled";
 import { usePreferences } from "../../providers/ContentPreferencesProvider";
 import axios from "axios";
+import { useAuth } from "../../providers/AuthProvider";
 
 const PopupControls = ({ playVariant, circleBg, contentID }) => {
   const { likes, list, setList, setLikes } = usePreferences();
   const [listed, setListed] = useState(false);
   const [liked, setLiked] = useState(false);
+  const { setAuthed } = useAuth();
 
   useEffect(() => {
     if (likes.includes(contentID)) setLiked(true);
@@ -19,6 +21,10 @@ const PopupControls = ({ playVariant, circleBg, contentID }) => {
   const handleListClick = (e) => {
     e.stopPropagation();
     const token = localStorage.getItem("token");
+    if (!token) {
+      setAuthed(false);
+      return;
+    }
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -57,6 +63,10 @@ const PopupControls = ({ playVariant, circleBg, contentID }) => {
   const handleLikeClick = (e) => {
     e.stopPropagation();
     const token = localStorage.getItem("token");
+    if (!token) {
+      setAuthed(false);
+      return;
+    }
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,

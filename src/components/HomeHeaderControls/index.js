@@ -1,10 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import React, { useRef, useState } from "react";
-import { BiSearch, BiBell } from "react-icons/bi";
+import { BiBell } from "react-icons/bi";
 import { IoMdArrowDropdown } from "react-icons/io";
 import "./HomeHeaderControls.css";
 import pic from "./ProfilePic.png";
 import HomeHeaderDropdown from "../HomeHeaderDropdown";
+import SearchInput from "../SearchInput";
 
 const HomeHeaderControls = () => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -23,7 +24,8 @@ const HomeHeaderControls = () => {
 
   return (
     <Box display="flex" alignItems="center">
-      <BiSearch className="header-controls-item" />
+      {/* <BiSearch className="header-controls-item" /> */}
+      <SearchInput />
       <Typography
         variant="body1"
         marginRight="14px"

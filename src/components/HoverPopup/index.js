@@ -51,19 +51,11 @@ const HoverPopup = ({ popupProps, setPopupProps, setInfoProps }) => {
   const handleExpand = () => {
     console.log("Box clicked");
     //get video current time
-    const pos = popupRef.current.getBoundingClientRect();
+    // const pos = popupRef.current.getBoundingClientRect();
 
     setInfoProps({
-      initialPosition: {
-        x: pos.x,
-        y: pos.y,
-      },
-      initialDimensions: {
-        width: pos.width,
-        height: pos.height,
-      },
       display: "showInfoPanel",
-      content: popupProps.content,
+      id: popupProps.content.id,
     });
   };
 
