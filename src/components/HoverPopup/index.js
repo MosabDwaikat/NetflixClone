@@ -1,7 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-
 import styled from "@emotion/styled";
 import PopupControls from "../PopupControls";
 import ContentInfo from "../ContentInfo";
@@ -124,7 +123,11 @@ const HoverPopup = ({ popupProps, setPopupProps, setInfoProps }) => {
               justifyContent={"flex-start"}
               marginBottom={"8px"}
             >
-              <PopupControls playVariant={"circle"} circleBg={"dark"} />
+              <PopupControls
+                playVariant={"circle"}
+                circleBg={"dark"}
+                contentID={popupProps.content.id}
+              />
               <Box width={"60%"} display={"flex"} justifyContent={"flex-end"}>
                 <CircleButton
                   onClick={(e) => {

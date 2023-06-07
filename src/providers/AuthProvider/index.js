@@ -1,9 +1,45 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../contexts/AuthContext";
 import axios from "axios";
 
 export const AuthProvider = ({ children }) => {
-  const [authed, setAuthed] = useState(false);
+  const [authed, setAuthed] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // checking the user's status
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      verifyToken(token);
+    } else {
+      setAuthed(false);
+      setIsLoading(false);
+    }
+  }, []);
+
+  const verifyToken = async (token) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/auth/verifyToken",
+        { token: token }
+      );
+
+      if (response.data.valid) {
+        setAuthed(true);
+        setIsLoading(false);
+      } else {
+        setAuthed(false);
+        setIsLoading(false);
+        localStorage.removeItem("token");
+      }
+    } catch (error) {
+      console.log(error);
+      setAuthed(false);
+
+      setIsLoading(false);
+      localStorage.removeItem("token");
+    }
+  };
 
   const login = async (info) => {
     console.log("before");
@@ -11,6 +47,7 @@ export const AuthProvider = ({ children }) => {
     console.log("result", result);
     if (result) {
       console.log("user has logged in");
+
       setAuthed(true);
     }
   };
@@ -33,16 +70,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    const result = await fakeAsyncLogout();
+    const result = await logoutFromServer();
     if (result) {
       console.log("The User has logged out");
+
       setAuthed(false);
     }
   };
 
-  // Mock Async Logout API call.
-  // TODO: Replace with your actual logout API Call code
-  const fakeAsyncLogout = async () => {
+  const logoutFromServer = async () => {
     try {
       const response = await axios.get("http://localhost:5000/auth/logout");
       console.log(response);
@@ -57,7 +93,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ authed, setAuthed, login, logout }}>
+    <AuthContext.Provider
+      value={{ authed, isLoading, setAuthed, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -1,11 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
-const AboutContent = ({ cast, creators, geners, info, thisIs }) => {
+const AboutContent = ({ cast, creators, geners, info, thisIs, title }) => {
   return (
     <Box paddingBottom={"2em"}>
       <Typography variant="h3" color={"white"}>
-        About <strong>{"thing"}</strong>
+        About <strong>{title}</strong>
       </Typography>
       {creators && (
         <Box margin={".5em .5em .5em 0"}>

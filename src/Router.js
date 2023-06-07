@@ -9,36 +9,22 @@ import Landing from "./pages/Landing";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUpSteps";
 import ProtectedRoute from "./ProtectedRoute";
+import RedirectAuthed from "./RedirectAuthed";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          index
-          element={
-            // <GuardLogin>
-            <Landing />
-            // </GuardLogin>
-          }
-        />
+        <Route index element={<RedirectAuthed element={<Landing />} />} />
         {/* <Layout /> */}
         <Route
           path="/SignIn"
-          element={
-            //   <GuardNotLoggedin>
-            <SignIn />
-            //   </GuardNotLoggedin>
-          }
+          element={<RedirectAuthed element={<SignIn />} />}
         />
         <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
         <Route
           path="/SignUp"
-          element={
-            //   <GuardNotLoggedin>
-            <SignUp />
-            //   </GuardNotLoggedin>
-          }
+          element={<RedirectAuthed element={<SignUp />} />}
         />
       </Routes>
     </BrowserRouter>

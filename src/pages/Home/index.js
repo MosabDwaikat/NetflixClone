@@ -10,6 +10,7 @@ import HomeMain from "../../components/HomeMain";
 import HomeFooter from "../../components/HomeFooter";
 import InfoPanel from "../../components/InfoPanel";
 import axios from "axios";
+import { usePreferences } from "../../providers/ContentPreferencesProvider";
 
 const Home = () => {
   const [popupProps, setPopupProps] = useState({
@@ -28,6 +29,7 @@ const Home = () => {
   });
   const [showVideo, setShowVideo] = useState(true);
   const [muteVideo, setMuteVideo] = useState(true);
+  const { list } = usePreferences();
 
   const handleVideoEnd = () => {
     setShowVideo(false);
@@ -44,11 +46,17 @@ const Home = () => {
       //mute
     }
   };
-  const [heroPreview, setHeroPreview] = useState({});
 
+  const [heroPreview, setHeroPreview] = useState({});
   useEffect(() => {
     try {
-      axios.get("http://localhost:5000/").then((res) => {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios.get("http://localhost:5000/hero", config).then((res) => {
         setHeroPreview(res.data);
       });
     } catch (error) {
@@ -56,14 +64,37 @@ const Home = () => {
     }
   }, []);
 
-  const [slidersContent, setSlidersContent] = useState([]);
+  const [myList, setMyList] = useState({ title: "", content: [] });
   useEffect(() => {
     try {
-      axios.get("http://localhost:5000/sliders").then((res) => {
-        setSlidersContent(res.data);
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios.get("http://localhost:5000/list/content", config).then((res) => {
+        setMyList(res.data);
       });
     } catch (error) {
       console.error("Error retrieving Firestore data:", error);
+    }
+  }, [list]);
+
+  const [slidersContent, setSlidersContent] = useState([]);
+  useEffect(() => {
+    try {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios.get("http://localhost:5000/sliders", config).then((res) => {
+        setSlidersContent(res.data);
+      });
+    } catch (error) {
+      console.log("Error retrieving Firestore data:", error);
     }
   }, []);
 
@@ -108,6 +139,17 @@ const Home = () => {
               "linear-gradient(transparent 0, transparent 100px, rgb(20,20,20) 200px)",
           }}
         >
+          <HomeCarousel title={myList.title}>
+            {myList.content.map((element, index) => {
+              return (
+                <ContentCard
+                  key={index}
+                  content={element}
+                  setPopupProps={setPopupProps}
+                />
+              );
+            })}
+          </HomeCarousel>
           {slidersContent.map((e, i) => {
             return (
               <HomeCarousel title={e.title} key={i}>
@@ -131,78 +173,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// const heroPreview = {
-//   title: "The 100",
-//   img: the100,
-//   video: "the100.mp4",
-//   logo: the100Logo,
-//   description: `A century after Earth was devastated by a nuclear apocalypse, 100
-//   space station residents are sent to the planet to determine whether
-//   it's habitable.`,
-//   info: {
-//     type: "TV show", //or movie
-//     match: 99, //percentage
-//     maturity: 18, //+18
-//     length: "7 Seasons", //seasons, episodes, or movie time
-//     quality: "HD", //HD, 4K
-//   },
-//   tags: ["Dystopian", "Violent", "Sci-Fi TV"],
-// };
-
-// const sliders = [
-//   {
-//     title: "Popular on Netflix",
-//     content: [
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//     ],
-//   },
-//   {
-//     title: "Trending Now",
-//     content: [
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//     ],
-//   },
-//   {
-//     title: "My List",
-//     content: [
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//       heroPreview,
-//     ],
-//   },
-// ];
