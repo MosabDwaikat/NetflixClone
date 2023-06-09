@@ -11,12 +11,23 @@ const EpisodeCard = ({ episode }) => {
       padding={"1em"}
       sx={{ cursor: "pointer" }}
     >
-      <Box display={"flex"} alignItems={"center"} paddingRight={"1em"}>
+      <Box
+        width={"45px"}
+        minWidth={"45px"}
+        display={"flex"}
+        alignItems={"center"}
+        paddingRight={"1em"}
+      >
         <Typography variant="h2" color={"white"}>
           {episode.num}
         </Typography>
       </Box>
-      <Box width={"255px"} display={"flex"} alignItems={"center"}>
+      <Box
+        minWidth={"200px"}
+        width={"200px"}
+        display={"flex"}
+        alignItems={"center"}
+      >
         <img src={episode.img} alt="xx" width={"100%"} />
       </Box>
       <Box display={"flex"} flexDirection={"column"} justifyContent={"center"}>

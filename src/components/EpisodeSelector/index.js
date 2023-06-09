@@ -20,6 +20,7 @@ const EpisodeSelector = ({ seasons }) => {
     setSeason(event.target.value);
   };
   const index = seasons.findIndex((item) => item.num === season);
+
   const filteredData = seasons[index].episodes.slice(
     0,
     expanded ? seasons[index].episodes.length : 10
@@ -31,7 +32,6 @@ const EpisodeSelector = ({ seasons }) => {
     }
   };
 
-  console.log(seasons[index].episodes.length);
   return (
     <Box marginTop={"30px"}>
       <Box
@@ -77,7 +77,7 @@ const EpisodeSelector = ({ seasons }) => {
         {filteredData.map((e, i) => {
           return <EpisodeCard episode={e} key={i} />;
         })}
-        {!expanded && data.length > 10 && (
+        {!expanded && seasons[index].episodes.length > 10 && (
           <Box
             width="100%"
             height="3px"
@@ -99,7 +99,7 @@ const EpisodeSelector = ({ seasons }) => {
             </Box>
           </Box>
         )}
-        {expanded && data.length > 10 && (
+        {expanded && seasons[index].episodes.length > 10 && (
           <Box
             width="100%"
             height="3px"
@@ -128,8 +128,6 @@ const EpisodeSelector = ({ seasons }) => {
 };
 
 export default EpisodeSelector;
-
-const data = [{}, {}, {}];
 
 const CircleButton = styled(Button)(({ color, sx }) => ({
   display: "flex",
