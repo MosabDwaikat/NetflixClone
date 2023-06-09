@@ -156,17 +156,19 @@ const Home = () => {
               "linear-gradient(transparent 0, transparent 100px, rgb(20,20,20) 200px)",
           }}
         >
-          <HomeCarousel title={myList.title}>
-            {myList.content.map((element, index) => {
-              return (
-                <ContentCard
-                  key={index}
-                  content={element}
-                  setPopupProps={setPopupProps}
-                />
-              );
-            })}
-          </HomeCarousel>
+          {myList.content && myList.content.length > 0 && (
+            <HomeCarousel title={myList.title}>
+              {myList.content.map((element, index) => {
+                return (
+                  <ContentCard
+                    key={index}
+                    content={element}
+                    setPopupProps={setPopupProps}
+                  />
+                );
+              })}
+            </HomeCarousel>
+          )}
           {slidersContent.map((e, i) => {
             return (
               <HomeCarousel title={e.title} key={i}>

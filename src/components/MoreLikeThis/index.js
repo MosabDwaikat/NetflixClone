@@ -1,21 +1,45 @@
 import { Box, Button, Typography } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import styled from "@emotion/styled";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import RelatedCard from "./RelatedCard";
+import { useAuth } from "../../providers/AuthProvider";
+import axios from "axios";
 
 const MoreLikeThis = () => {
   const [expanded, setExpanded] = useState(false);
   const moreLikeThisRef = useRef(null);
-
-  const filteredData = data.slice(0, expanded ? data.length : 9);
+  const { setAuthed } = useAuth();
 
   const scrollToTop = () => {
     if (moreLikeThisRef.current) {
       moreLikeThisRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const [cards, setCards] = useState([]);
+  useEffect(() => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token)
+        return () => {
+          setAuthed(false);
+        };
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios.get("http://localhost:5000/shows", config).then((res) => {
+        setCards(res.data);
+      });
+    } catch (error) {
+      console.log("Error retrieving Firestore data:", error);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const filteredData = cards.slice(0, expanded ? cards.length : 9);
 
   return (
     <Box marginTop={"30px"}>
@@ -41,7 +65,7 @@ const MoreLikeThis = () => {
           })}
         </Box>
 
-        {!expanded && data.length > 9 && (
+        {!expanded && cards.length > 9 && (
           <Box
             width="100%"
             height="3px"
@@ -63,7 +87,7 @@ const MoreLikeThis = () => {
             </Box>
           </Box>
         )}
-        {expanded && data.length > 9 && (
+        {expanded && cards.length > 9 && (
           <Box
             width="100%"
             height="3px"
@@ -92,8 +116,6 @@ const MoreLikeThis = () => {
 };
 
 export default MoreLikeThis;
-
-const data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
 
 const CircleButton = styled(Button)(({ color, sx }) => ({
   display: "flex",

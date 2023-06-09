@@ -24,10 +24,7 @@ const Router = () => {
           element={<RedirectAuthed element={<SignUp />} />}
         />
         <Route path="/" element={<Layout />}>
-          <Route
-            path="/home"
-            element={<ProtectedRoute element={<h1>Home</h1>} />}
-          />
+          <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
           <Route
             path="/Search"
             element={<ProtectedRoute element={<Search />} />}

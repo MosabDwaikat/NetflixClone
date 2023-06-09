@@ -33,11 +33,9 @@ const PopupControls = ({ playVariant, circleBg, contentID }) => {
 
     if (listed) {
       try {
-        console.log(config);
         axios
           .delete("http://localhost:5000/list/" + contentID, config)
           .then((res) => {
-            console.log("newList", res.data);
             setList(res.data.newList);
             setListed(false);
           });
@@ -46,11 +44,9 @@ const PopupControls = ({ playVariant, circleBg, contentID }) => {
       }
     } else {
       try {
-        console.log(config);
         axios
           .put("http://localhost:5000/list/" + contentID, null, config)
           .then((res) => {
-            console.log("newList", res.data.newList);
             setList(res.data.newList);
             setListed(true);
           });
@@ -75,11 +71,9 @@ const PopupControls = ({ playVariant, circleBg, contentID }) => {
 
     if (liked) {
       try {
-        console.log(config);
         axios
           .delete("http://localhost:5000/likes/" + contentID, config)
           .then((res) => {
-            console.log("newList", res.data);
             setLikes(res.data.newList);
             setLiked(false);
           });
@@ -88,11 +82,9 @@ const PopupControls = ({ playVariant, circleBg, contentID }) => {
       }
     } else {
       try {
-        console.log(config);
         axios
           .put("http://localhost:5000/likes/" + contentID, null, config)
           .then((res) => {
-            console.log("newList", res.data.newList);
             setLikes(res.data.newList);
             setLiked(true);
           });
